@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map, take, first } from 'rxjs/operators';
 @Injectable()
 export class DataService {
@@ -9,30 +9,14 @@ export class DataService {
     private http:HttpClient
   ) { }
 
-  getDataOne(): Observable<any> {
-    return this.http.get('https://jsonplaceholder.typicode.com/todos/1')
-      .pipe(
-        map((value) => {
-          return value;
-        })
-      )
+  getPreData(): Observable<any[]> {
+    return of([1,2,3]);
   }
 
 
-  getDataTwo(): Observable<any> {
-    return this.http.get('https://jsonplaceholder.typicode.com/todos/2')
+  getData(id): Observable<any> {
+    return this.http.get(`https://jsonplaceholder.typicode.com/todos/${id}`)
       .pipe(
-        take(1),
-        map((value) => {
-          return value;
-        })
-      )
-  }
-
-  getDataThree(): Observable<any> {
-    return this.http.get('https://jsonplaceholder.typicode.com/todos/3')
-      .pipe(
-        first(),
         map((value) => {
           return value;
         })

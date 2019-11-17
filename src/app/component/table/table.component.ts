@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../service/data.service';
 import {Observable} from 'rxjs';
+import { switchMap} from 'rxjs/operators';
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
@@ -17,12 +18,15 @@ export class TableComponent implements OnInit {
   dataProvider3: Array<any>;
 
   ngOnInit() {
-    this.dataProvider1$ = this.dataService.getDataOne();
 
-    this.dataService.getDataTwo()
-      .subscribe((value) => {
-        this.dataProvider2 = value;
-      });
+    this.dataProvider1$ = this.dataService.getPreData()
+    .pipe(
+      switchMap((val) => {
+        console.log(val);
+        return this.dataService.getData(val[0])
+      })
+    )
+       
   }
 
 }
