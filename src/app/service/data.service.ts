@@ -9,8 +9,8 @@ export class DataService {
     private http:HttpClient
   ) { }
 
-  getPreData(): Observable<any[]> {
-    return of([1,2,3]);
+  getPreData(): Observable<any> {
+    return of(1,2,3);
   }
 
 
